@@ -1,333 +1,176 @@
 <!DOCTYPE html>
-<html lang="en" >
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4810150524509221"
-     crossorigin="anonymous"></script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PDF to JPG Converter - Free Online Tool</title>
+    <title>PDF to JPG Converter - Free Online Tool</title>
+    <meta name="description" content="Free online PDF to JPG converter. Convert PDF pages into JPG images easily.">
 
-  <meta name="description"
-        content="Convert PDF pages to JPG images online for free. Fast, simple and secure.">
+    <!-- Google AdSense -->
+    <script async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4810150524509221"
+        crossorigin="anonymous"></script>
 
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs"
-    type="module">
-  </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-    body {
-      background: #f5f7fb;
-      color: #222;
-    }
+        h1 {
+            color: #222;
+        }
 
-    header {
-      background: white;
-      padding: 25px 15px;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
+        p {
+            color: #555;
+        }
 
-    header h1 {
-      color: #2563eb;
-      font-size: 30px;
-    }
+        input {
+            margin: 20px 0;
+            padding: 10px;
+        }
 
-    header p {
-      margin-top: 8px;
-      color: #666;
-    }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 50px auto;
-      padding: 20px;
-    }
+        button:hover {
+            background: #1d4ed8;
+        }
 
-    .converter {
-      background: white;
-      padding: 40px;
-      border-radius: 18px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      text-align: center;
-    }
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+        }
 
-    .upload-box {
-      border: 2px dashed #2563eb;
-      border-radius: 15px;
-      padding: 50px 20px;
-      cursor: pointer;
-      background: #f8fbff;
-    }
-
-    .upload-box:hover {
-      background: #eef5ff;
-    }
-
-    .upload-box h2 {
-      margin-bottom: 12px;
-    }
-
-    .upload-box p {
-      color: #777;
-      margin-bottom: 22px;
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
-    .upload-btn {
-      display: inline-block;
-      background: #2563eb;
-      color: white;
-      padding: 14px 25px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    #status {
-      margin-top: 20px;
-      color: #555;
-      font-weight: bold;
-    }
-
-    #results {
-      margin-top: 30px;
-    }
-
-    .page {
-      margin-bottom: 25px;
-      padding: 20px;
-      background: #f8f8f8;
-      border-radius: 12px;
-    }
-
-    .page img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    .download-btn {
-      display: inline-block;
-      padding: 11px 20px;
-      background: #16a34a;
-      color: white;
-      text-decoration: none;
-      border-radius: 7px;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #777;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        margin: 20px auto;
-      }
-
-      .converter {
-        padding: 20px;
-      }
-
-      header h1 {
-        font-size: 24px;
-      }
-    }
-  </style>
+        canvas {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  <h1>PDF to JPG Converter</h1>
-  <p>Convert PDF pages into high-quality JPG images</p>
-</header>
-
 <div class="container">
 
-  <div class="converter">
+    <h1>PDF to JPG Converter</h1>
 
-    <div
-      class="upload-box"
-      onclick="document.getElementById('pdfFile').click()">
+    <p>Convert your PDF pages into JPG images quickly and easily.</p>
 
-      <h2>Convert PDF to JPG</h2>
+    <input type="file" id="pdfFile" accept="application/pdf">
 
-      <p>
-        Select your PDF file and convert every page into JPG.
-      </p>
+    <br>
 
-      <span class="upload-btn">
-        Choose PDF File
-      </span>
-
-      <input
-        type="file"
-        id="pdfFile"
-        accept="application/pdf">
-    </div>
+    <button onclick="convertPDF()">Convert PDF to JPG</button>
 
     <div id="status"></div>
 
-    <div id="results"></div>
-
-  </div>
+    <div id="output"></div>
 
 </div>
 
-<footer>
-  © 2026 PDF Tools. All Rights Reserved.
-</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
-<script type="module">
+<script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-  import * as pdfjsLib
-    from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+    async function convertPDF() {
 
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+        const fileInput = document.getElementById("pdfFile");
+        const status = document.getElementById("status");
+        const output = document.getElementById("output");
 
-  const fileInput =
-    document.getElementById("pdfFile");
+        output.innerHTML = "";
 
-  const status =
-    document.getElementById("status");
-
-  const results =
-    document.getElementById("results");
-
-  fileInput.addEventListener(
-    "change",
-    async function () {
-
-      const file = this.files[0];
-
-      if (!file) return;
-
-      if (file.type !== "application/pdf") {
-
-        status.innerText =
-          "Please select a PDF file.";
-
-        return;
-      }
-
-      status.innerText =
-        "Converting PDF...";
-
-      results.innerHTML = "";
-
-      try {
-
-        const arrayBuffer =
-          await file.arrayBuffer();
-
-        const pdf =
-          await pdfjsLib.getDocument({
-            data: arrayBuffer
-          }).promise;
-
-        status.innerText =
-          `Found ${pdf.numPages} page(s). Converting...`;
-
-        for (
-          let pageNumber = 1;
-          pageNumber <= pdf.numPages;
-          pageNumber++
-        ) {
-
-          const page =
-            await pdf.getPage(pageNumber);
-
-          const scale = 2;
-
-          const viewport =
-            page.getViewport({
-              scale: scale
-            });
-
-          const canvas =
-            document.createElement("canvas");
-
-          const context =
-            canvas.getContext("2d");
-
-          canvas.width =
-            viewport.width;
-
-          canvas.height =
-            viewport.height;
-
-          await page.render({
-            canvasContext: context,
-            viewport: viewport
-          }).promise;
-
-          const jpgData =
-            canvas.toDataURL(
-              "image/jpeg",
-              0.92
-            );
-
-          const pageDiv =
-            document.createElement("div");
-
-          pageDiv.className = "page";
-
-          const img =
-            document.createElement("img");
-
-          img.src = jpgData;
-
-          const download =
-            document.createElement("a");
-
-          download.href = jpgData;
-
-          download.download =
-            `page-${pageNumber}.jpg`;
-
-          download.innerText =
-            `Download Page ${pageNumber}`;
-
-          download.className =
-            "download-btn";
-
-          pageDiv.appendChild(img);
-
-          pageDiv.appendChild(download);
-
-          results.appendChild(pageDiv);
+        if (!fileInput.files.length) {
+            status.innerText = "Please select a PDF file first.";
+            return;
         }
 
-        status.innerText =
-          "✅ PDF converted successfully!";
+        const file = fileInput.files[0];
 
-      } catch (error) {
+        if (file.type !== "application/pdf") {
+            status.innerText = "Please select a valid PDF file.";
+            return;
+        }
 
-        console.error(error);
+        status.innerText = "Converting...";
 
-        status.innerText =
-          "❌ Something went wrong while converting the PDF.";
-      }
+        try {
 
+            const arrayBuffer = await file.arrayBuffer();
+
+            const pdf = await pdfjsLib.getDocument({
+                data: arrayBuffer
+            }).promise;
+
+            for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+
+                const page = await pdf.getPage(pageNumber);
+
+                const viewport = page.getViewport({
+                    scale: 2
+                });
+
+                const canvas = document.createElement("canvas");
+
+                const context = canvas.getContext("2d");
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                await page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                }).promise;
+
+                const image = canvas.toDataURL("image/jpeg", 0.9);
+
+                const link = document.createElement("a");
+
+                link.href = image;
+                link.download = "page-" + pageNumber + ".jpg";
+                link.innerText = "Download Page " + pageNumber + " JPG";
+
+                link.style.display = "block";
+                link.style.margin = "15px";
+
+                output.appendChild(canvas);
+                output.appendChild(link);
+            }
+
+            status.innerText = "Conversion completed successfully!";
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.innerText =
+                "Something went wrong. Please try another PDF file.";
+        }
     }
-  );
-
 </script>
 
 </body>
-  </html>
+</html>
